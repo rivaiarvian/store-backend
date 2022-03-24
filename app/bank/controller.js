@@ -24,7 +24,7 @@ module.exports = {
     try {
       res.render("admin/bank/create", {
         name: req.session.user.name,
-        title: "Halaman create bank",
+        title: "Halaman tambah bank",
       });
     } catch (error) {
       req.flash("alertMessage", `${error.message}`);
