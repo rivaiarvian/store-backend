@@ -37,6 +37,7 @@
                 </td>
                 <td><%= transaction[i]?.player?.name ?? '-' %></td>
                 <td>
+                    <% if(transaction[i].status === 'pending'){ %>
                     <form style="display: inline;" action="/transaction/status/<%= transaction[i]._id %>?status=failed&_method=PUT" method="POST">
                         <button class="btn btn-danger btn-sm">
                             <i class="fas fa-times"></i>
@@ -49,6 +50,9 @@
                             Terima
                         </button>
                     </form>
+                    <% }else{ %>
+                        <span class="badge badge-primary">Hanya bisa di terima saat statu pending</span>
+                    <% } %>
                 </td>
             </tr>
         <% } %>

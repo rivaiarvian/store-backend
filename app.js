@@ -6,6 +6,7 @@ const logger = require("morgan");
 const methodOverride = require("method-override");
 const session = require("express-session");
 const flash = require("connect-flash");
+const cors = require("cors");
 
 const categoryRouter = require("./app/category/router");
 const dashboardRouter = require("./app/dashboard/router");
@@ -17,8 +18,16 @@ const userRouter = require("./app/users/router");
 const transactionRouter = require("./app/transaction/router");
 const playerRouter = require("./app/player/router");
 
+//API
+const playersRouter = require("./app/API/players/router");
+const authRouter = require("./app/API/auth/router");
+
 const app = express();
+const URL = `/api/v1`;
+
 app.locals.moment = require("moment");
+
+app.use(cors());
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -53,6 +62,10 @@ app.use("/bank", bankRouter);
 app.use("/payment", paymentRouter);
 app.use("/transaction", transactionRouter);
 app.use("/player", playerRouter);
+
+//API
+app.use(`${URL}/players`, playersRouter);
+app.use(`${URL}/auth`, authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
